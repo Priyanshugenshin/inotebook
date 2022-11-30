@@ -3,6 +3,7 @@ const router = express.Router()
 const User = require("../models/Users")
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const fetchUser = require('../middleware/fetchUser')
 const saltRounds = 10;
 
 const mysecreate = "ilovetoplaygenshin"
@@ -91,5 +92,16 @@ router.post('/createuser',[
     }
   )
 
+    // Authenticate a user using : POST "/api/auth/getuser" , login is required
+router.post("/getuser",fetchUser,async(req,res)=>{
+    try {
+        userId = req.user.id
+        const user = await User.findById(userId).select("-password")
+        res.send(user)
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).send("Internal Server Error")
+    }
+})
   
 module.exports = router
