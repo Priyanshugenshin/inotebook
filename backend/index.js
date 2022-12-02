@@ -13,6 +13,6 @@ app.use('/api/auth',require('./routes/auth'))
 app.use('/api/notes',require('./routes/notes'))
 
 
-app.listen(3000,()=>{
+app.listen(6000,()=>{
     console.log("server is started at port 3000")
 })
