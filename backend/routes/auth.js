@@ -61,6 +61,7 @@ router.post('/createuser',[
   ],
   async(req,res)=>{
     // If there is error bad request is send 
+    let success = false
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -74,7 +75,8 @@ router.post('/createuser',[
         }
         const passwordCompare = bcrypt.compareSync(password,user.password)
         if(!passwordCompare){
-            return res.status(400).json({error:"Please try to login with correct credentials"})
+          success = false
+            return res.status(400).json({success,error:"Please try to login with correct credentials"})
         }
 
         const data = {
@@ -83,8 +85,8 @@ router.post('/createuser',[
             }
         }
           var token = jwt.sign(data, mysecreate);
-        
-          res.json({token})
+          success = true
+          res.json({success,token})
       } catch(error) {
         console.error(error.message)
         res.status(500).send("error is Occured")
