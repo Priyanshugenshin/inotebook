@@ -74,6 +74,8 @@ const Note = () => {
 </div>
       <div className='row my-3'>
         <h2>Your Notes</h2>
+        <div className="container mx-2">{state.length === 0 && "Notes is Empty"}</div>
+        
         {state.map((state) => {
           return <Noteitem key={state._id} note={state} updateOnClick = {updateOnClick} />
         })}
