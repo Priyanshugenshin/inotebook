@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 
-function Signup() {
+function Signup(props) {
     const host = `http://localhost:3001`
     const [credential, setCredential] = useState({ name:"", email: "", password: "" })
     let navigate = useNavigate();
+    const {showAlert} = props
 
     const handleSubmit = async (e)=> {
         e.preventDefault()
@@ -22,9 +23,10 @@ function Signup() {
           if (json.success) {
             localStorage.setItem('token',json.token)
             navigate("/")
+            showAlert("Signup Successfully","success")
           }
           else {
-            alert("Invalid Credential")
+            showAlert("Invalid Credential","danger")
           }
     }
     const handleChange = (e) => {

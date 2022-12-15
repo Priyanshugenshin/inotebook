@@ -1,11 +1,12 @@
 import React from 'react'
 import Note from './Note'
 
-export default function Home() {
+export default function Home(props) {
+  const {showAlert} = props
   return (
     <div>
 <div className="container my-3">
-<Note />
+<Note showAlert={showAlert}/>
 </div>
     </div>
 

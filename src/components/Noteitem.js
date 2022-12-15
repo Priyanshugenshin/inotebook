@@ -2,11 +2,12 @@ import React, { useContext } from 'react'
 import noteContext from '../context/notes/noteContext'
 
 const Noteitem = (props)=>{
-    const {note,updateOnClick} = props
+    const {note,updateOnClick,showAlert} = props
     const context = useContext(noteContext)
     const {deleteNote} = context
     const handleDelete = () => {
         deleteNote(note._id)
+        showAlert("Deleting Note Successfully","success")
     }
     return (
         <div className="col-md-4">

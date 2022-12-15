@@ -3,9 +3,10 @@ import noteContext from '../context/notes/noteContext'
 import AddNote from './AddNote'
 import Noteitem from './Noteitem'
 
-const Note = () => {
+const Note = (props) => {
   const context = useContext(noteContext)
   const { state, fetchNote, editNote } = context
+  const {showAlert} = props
 
   useEffect(() => {
     fetchNote()
@@ -18,12 +19,12 @@ const Note = () => {
   const refClose = useRef(null)
 
   const updateOnClick = (clickedNote) => {
-    console.log("Update on Click")
+    showAlert("Update on Click","success")
     ref.current.click()
     setNote({id:clickedNote._id,etitle:clickedNote.title,edescription:clickedNote.description,etag:clickedNote.tag})
   }
   const handleClick = (e) => {
-    console.log("Updating the change",note)
+    showAlert("Updating the change","success")
     e.preventDefault()
     editNote(note.id,note.etitle,note.edescription,note.etag)
     refClose.current.click()
@@ -35,7 +36,7 @@ const Note = () => {
   return (
     <>
 
-      <AddNote />
+      <AddNote showAlert={showAlert}/>
 
 
 <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -77,7 +78,7 @@ const Note = () => {
         <div className="container mx-2">{state.length === 0 && "Notes is Empty"}</div>
         
         {state.map((state) => {
-          return <Noteitem key={state._id} note={state} updateOnClick = {updateOnClick} />
+          return <Noteitem key={state._id} note={state} updateOnClick = {updateOnClick} showAlert={showAlert} />
         })}
       </div>
     </>
