@@ -18,15 +18,16 @@ router.post('/createuser',[
     async (req, res) => {
 
         // If there is error bad request is send 
+        let success = false
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ success,errors: errors.array() });
       }
       try {
         // Check whether this user is exist or not 
         let user = await User.findOne({email:req.body.email})
         if (user) {
-            return res.status(400).json({error:"Sorry a user is already created with same data"})
+            return res.status(400).json({success,error:"Sorry a user is already created with same data"})
         }
         const salt = bcrypt.genSaltSync(saltRounds);
         const hash = bcrypt.hashSync(req.body.password, salt);
@@ -44,8 +45,8 @@ router.post('/createuser',[
             }
         }
           var token = jwt.sign(data, mysecreate);
-        
-          res.json(token)
+          success = true
+          res.json({success,token})
       } catch(error) {
         console.error(error.message)
         res.status(500).send("error is Occured")
