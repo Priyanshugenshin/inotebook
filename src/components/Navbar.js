@@ -1,14 +1,19 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
 
 export default function Navbar() {
-    let location = useLocation();
+  let location = useLocation()
+    let navigate = useNavigate()
+    const handleClick = () => {
+      localStorage.removeItem("token")
+      navigate("/login")      
+    }
    
 
   return (
     <div>
-  <nav className="navbar navbar-expand-lg bg-light">
+  <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
   <div className="container-fluid">
     <Link className="navbar-brand" to="/">Navbar</Link>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="/navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,10 +29,10 @@ export default function Navbar() {
         </li>
         
       </ul>
-      <form className="d-flex"> 
+      {!localStorage.getItem("token")?<form className="d-flex"> 
       <Link className="btn btn-primary mx-1" to="/login" role="button">Login</Link>
       <Link className='btn btn-primary mx-1' to="/signup" role="button">SignUp</Link>
-      </form>
+      </form>:<button onClick={handleClick} className="btn btn-primary">Logout</button>}
     </div>
   </div>
 </nav>

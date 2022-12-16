@@ -36,7 +36,7 @@ function Login(props) {
         <form onSubmit={handleSubmit}>
       <div className="mb-3">
   <label htmlFor="email" className="form-label" >Email </label>
-  <input type="email" className="form-control"  placeholder="email" name="email" id='email' onChange={handleChange}/>
+  <input type="email" className="form-control"  name="email" id='email' onChange={handleChange}/>
 </div>
 <div className="mb-3">
   <label htmlFor="password" className="form-label" >Password</label>
